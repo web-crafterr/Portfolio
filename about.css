@@ -26,6 +26,8 @@ html {
 body {
     background: var(--bg-main);
     color: var(--text-primary);
+        padding-top: 70px;
+
 }
 
 /* ================= LOGO ================= */
@@ -64,6 +66,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+      position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 nav ul {
@@ -1113,3 +1120,4 @@ background: linear-gradient(135deg, #3f4881, #1d2549); /* Dark bluish-gray gradi
   color: var(--text-primary);
   font-size: 16px;
 }
+
