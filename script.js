@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "GIS Project",
       description: "This GIS project involves analyzing and visualizing geographic data to study spatial patterns and relationships. It focuses on map creation, data interpretation, and presenting analytical results rather than web development.",
       image: "../Assets/Gis.png",
-      live: "https://hopeworkscamden.maps.arcgis.com/apps/mapviewer/index.html?webmap=1aa1daa704d74ec5a85eb2600af856ba",
+      live: "https://arcg.is/1GimOK1",
       github: "https://github.com/web-crafterr",
       technologies: ["ARC-Gis"],
       features: [
@@ -232,6 +232,7 @@ faqItems.forEach(item => {
     }
   });
 });
+
 
 
 
