@@ -266,7 +266,7 @@ p {
   margin: 0px auto;
   max-width: 800px;
   border-radius: 10px;            /* subtle rounded corners */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* elegant shadow */
+  
 }
 
 .hero-title {
@@ -899,4 +899,5 @@ background: linear-gradient(135deg, #3f4881, #1d2549); /* Dark bluish-gray gradi
   color: var(--text-primary);
   font-size: 16px;
 }
+
 
