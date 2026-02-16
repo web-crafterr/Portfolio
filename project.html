@@ -32,9 +32,9 @@
         </a>
 
     </nav>
-    <div class="heading-container">
-        <h2>Bringing Ideas to Life</h2>
-        <p> “From concept to execution — a complete breakdown of this project’s journey.”</p>
+    <div class="heading-container fade-up">
+        <h2 class="fade-up">Bringing Ideas to Life</h2>
+        <p class="fade-up"> “From concept to execution — a complete breakdown of this project’s journey.”</p>
     </div>
 
     <!-- ================= PROJECT GRID ================= -->
@@ -232,9 +232,9 @@
             </div>
         </section>
     </section>
-    <div class="heading-container">
-        <h2>Impact on My Skills</h2>
-        <p>How these projects helped me grow and sharpen my expertise</p>
+    <div class="heading-container fade-up">
+        <h2 class="fade-up">Impact on My Skills</h2>
+        <p class="fade-up">How these projects helped me grow and sharpen my expertise</p>
     </div>
     <!-- IMPACT SECTION -->
     <section class="impact-section">
@@ -328,6 +328,90 @@
 </footer>
 
     <script src="script.js"></script>
+     <script src="animation.js"></script>
+     <script>
+
+        const globalFadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll(".fade-up")
+  .forEach(element => globalFadeObserver.observe(element));
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const projectSection = document.querySelector(".projects");
+
+  if (!projectSection) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add show class when scrolling down from top
+        projectSection.classList.add("show");
+      }
+      // Do NOT remove class → stays visible
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(projectSection);
+
+});
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+  const impactSection = document.querySelector(".impact-section");
+
+  if (!impactSection) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add show class when scrolling down from top
+        impactSection.classList.add("show");
+      }
+      // Do NOT remove class → stays visible
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(impactSection);
+
+});
+
+     /* ================= FOOTER SCROLL ANIMATION ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const footerContainer = document.querySelector(".footer-container");
+
+  if (!footerContainer) return; // stop safely if footer not found
+
+  let footerPlayed = false;
+
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !footerPlayed) {
+
+        footerContainer.classList.add("show-container");
+
+        setTimeout(() => {
+          footerContainer.classList.add("show-content");
+        }, 200);
+
+        footerPlayed = true;
+      }
+    });
+  }, { threshold: 0.2 });
+
+  footerObserver.observe(footerContainer);
+
+});</script>
 </body>
 
 

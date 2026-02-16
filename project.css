@@ -176,6 +176,78 @@ nav a.active::after {
 }
 
 
+/* ================= NAV LOAD ANIMATION ================= */
+
+/* NAV LOAD WRAPPER ANIMATION */
+nav {
+    opacity: 0;
+    animation: navSlideDown 0.8s ease forwards;
+}
+
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Hide top elements initially */
+.logo,
+.nav-btn,
+nav ul li {
+    opacity: 0;
+    transform: translateY(-40px);
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* Stagger remaining nav links one by one */
+nav.elements-show ul li:nth-child(2) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.4s;
+}
+
+nav.elements-show ul li:nth-child(3) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+nav.elements-show ul li:nth-child(4) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.8s;
+}
+
+nav.elements-show ul li:nth-child(5) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 1s;
+}
+
+/* Drop animation */
+@keyframes dropDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 .heading-container {
   background: var(--bg-main);
   color: var(--text-primary);
@@ -195,10 +267,7 @@ nav a.active::after {
   border-radius: 10px;
 }
 
-.expect-section {
-  display: flex;
-  justify-content: flex-end;
-}
+
 
 h2 {
   color: var(--text-primary);
@@ -208,6 +277,35 @@ h2 {
 p {
   color: var(--text-primary);
   font-size: 20px;
+}
+
+/* ================= GLOBAL FADE UP SYSTEM ================= */
+
+@keyframes globalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial hidden state */
+.fade-up {
+  opacity: 0;
+}
+
+/* When visible */
+.fade-up.show {
+  animation: globalFadeUp 1s ease forwards;
+}
+
+
+.expect-section {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* ================= PROJECT GRID ================= */
@@ -409,6 +507,46 @@ p {
     transition: transform 0.3s ease; /* optional smooth rotation */
 }
 
+/* ========================= */
+/* PROJECT CONTAINER EXPAND + CARDS SLIDE FROM RIGHT */
+/* ========================= */
+
+/* Container initial collapsed & shadowed */
+.projects {
+  transform: scaleY(0.6); /* start slightly narrow vertically */
+  opacity: 0;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25); /* top shadow */
+  transition: transform 1s ease, opacity 0.8s ease, box-shadow 1s ease;
+}
+
+/* When visible */
+.projects.show {
+  transform: scaleY(1);
+  opacity: 1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* normal shadow */
+}
+
+/* Individual project cards start off to the right */
+.project-card {
+  opacity: 0;
+  transform: translateX(50px); /* moved right */
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Cards visible - slide into place */
+.projects.show .project-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger animation for cards */
+.projects.show .project-card:nth-child(1) { transition-delay: 0s; }
+.projects.show .project-card:nth-child(2) { transition-delay: 0.2s; }
+.projects.show .project-card:nth-child(3) { transition-delay: 0.4s; }
+.projects.show .project-card:nth-child(4) { transition-delay: 0.6s; }
+.projects.show .project-card:nth-child(5) { transition-delay: 0.8s; }
+.projects.show .project-card:nth-child(6) { transition-delay: 1s; }
+/* add more nth-child if more cards */
 
 /* ================= MODAL ================= */
 .detail-projects-container {
@@ -890,6 +1028,42 @@ background: linear-gradient(
   color: #4b5563;
   line-height: 1.6;
 }
+/* ========================= */
+/* IMPACT SECTION ANIMATION */
+/* ========================= */
+
+/* Background initially pulled up and hidden */
+.impact-section {
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+/* When visible */
+.impact-section.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Cards initially hidden and pulled down */
+.impact-card {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Cards visible */
+.impact-section.show .impact-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger animation for multiple cards */
+.impact-section.show .impact-card:nth-child(1) { transition-delay: 0.2s; }
+.impact-section.show .impact-card:nth-child(2) { transition-delay: 0.4s; }
+.impact-section.show .impact-card:nth-child(3) { transition-delay: 0.6s; }
+.impact-section.show .impact-card:nth-child(4) { transition-delay: 0.8s; }
+/* Add more nth-child if more cards */
 
 
 
@@ -1004,4 +1178,45 @@ background: linear-gradient(135deg, #3f4881, #1d2549); /* Dark bluish-gray gradi
   color: var(--text-primary);
   font-size: 16px;
 
+}
+
+
+/* ================= FOOTER ANIMATION ================= */
+
+/* Initial state */
+.footer-container {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: transform 0.9s ease, opacity 0.9s ease;
+}
+
+/* When container becomes visible */
+.footer-container.show-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide inner content initially */
+.footer-col > * {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Animate inner content */
+.footer-container.show-content .footer-col > * {
+  animation: footerFadeUp 0.6s ease forwards;
+}
+
+/* Delay effect (one by one inside each column) */
+.footer-container.show-content .footer-col > *:nth-child(1) { animation-delay: 0.2s; }
+.footer-container.show-content .footer-col > *:nth-child(2) { animation-delay: 0.4s; }
+.footer-container.show-content .footer-col > *:nth-child(3) { animation-delay: 0.6s; }
+.footer-container.show-content .footer-col > *:nth-child(4) { animation-delay: 0.8s; }
+.footer-container.show-content .footer-col > *:nth-child(5) { animation-delay: 1s; }
+
+@keyframes footerFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

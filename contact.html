@@ -40,7 +40,7 @@
     <p> “From concept to execution — a complete breakdown of this project’s journey.”</p>
     <img src="./Assets/icon-link.png" alt="" srcset="">
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aribazanib@hopeworks.org&su=Contact%20from%20Portfolio&body=Hi%20Ariba,%0D%0A%0D%0AI%20would%20like%20to%20get%20in%20touch."
-      class="nav-btn btn">
+      class="con-hero-btn btn">
       <span class="btn-text">Send a Message</span>
       <span class="arrow">➜</span>
     </a>
@@ -151,26 +151,10 @@
     <!-- BOTTOM SECTION -->
     <section class="bottom">
       <!-- CONTACT -->
-      <div class="comments">
+      <div class="comments scroll-left">
         <img class="img" src="./Assets/contact-img.png" alt="" srcset="">
-        <!-- <h3>Comments (1)</h3>
-
-        <input type="text" placeholder="Enter your name" />
-        <textarea placeholder="Write your message here..."></textarea>
-
-        <div class="upload">
-          <button class="btn secondary full">Choose Profile Photo</button>
-          <small>Max file size: 5MB</small>
-        </div>
-
-        <button class="btn primary full">Post Comment</button>
-
-        <div class="comment">
-          <strong>Eki</strong>
-          <p>Ngelag kaga bang?</p>
-        </div> -->
       </div>
-  <div class="contact">
+  <div class="contact scroll-right">
   <div class="contact-heading">
     <h4>GET IN TOUCH</h4>
     <h3>“I’d Love to Hear From You!”</h3>
@@ -196,11 +180,6 @@
     <button id="confirmOk" class="btn-primary-full">OK</button>
   </div>
 </div>
-
-
-
-
-
       <!-- COMMENTS -->
     </section>
   </div>
@@ -218,7 +197,7 @@
           How can I get in touch with you?
         </button>
         <div class="faq-answer">
-          <p>You can reach me via the contact form above or directly at <strong>youremail@example.com</strong>. I
+          <p>You can reach me via the contact form above or directly at <strong>aribazanib@hopeworks.org</strong>. I
             usually reply within 24–48 hours and am happy to answer any questions about my projects, experience, or
             skills.</p>
         </div>
@@ -331,42 +310,103 @@
 
   <!-- JS -->
   <script src="script.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contactForm");
-  const confirmation = document.getElementById("confirmation");
-  const confirmOk = document.getElementById("confirmOk");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    // Send data to Google Sheet
-    fetch("https://script.google.com/macros/s/AKfycbyuUNW6n5yHX3sPlAnWCZ6tyr3cgqQ1KliOAAlD7OggBamZf-iyH-41RgIDY6U4sgI/exec", {
-      method: "POST",
-      body: formData
-    }).catch(() => {});
-
-    // Show confirmation dialog
-    confirmation.classList.add("active");
+      <script src="animation.js"></script>
+      <script>
+      const sectionObserver = new IntersectionObserver((items) => {
+  items.forEach((item) => {
+    if (item.isIntersecting) {
+      item.target.classList.add("show");
+    }
   });
+}, { threshold: 0.3 });
 
-  // OK button closes dialog & scrolls to top
-  confirmOk.addEventListener("click", function () {
-    confirmation.classList.remove("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    form.reset();
+const leftBlock = document.querySelector(".contact-left");
+const rightBlock = document.querySelector(".contact-right");
+
+sectionObserver.observe(leftBlock);
+sectionObserver.observe(rightBlock);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
   });
+}, {
+  threshold: 0.2
 });
 
-const form = document.getElementById("contactForm");
-new FormData(form).forEach((value, key) => console.log(key, value));
+document.querySelectorAll(".scroll-left, .scroll-right").forEach(el => {
+  observer.observe(el);
+});
 
-</script>
 
+const faqObserverFinal = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
 
+    // Heading animation
+    if (entry.target.matches(".faq-section h2") && entry.isIntersecting) {
+      entry.target.classList.add("show-heading");
+    }
+
+    // Subheading animation (small delay)
+    if (entry.target.classList.contains("faq-subheading") && entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add("show-subheading");
+      }, 200);
+    }
+
+    // FAQ cards animation (bottom one by one)
+    if (entry.target.classList.contains("faq-item") && entry.isIntersecting) {
+      const cards = Array.from(document.querySelectorAll(".faq-item"));
+      const index = cards.indexOf(entry.target);
+
+      setTimeout(() => {
+        entry.target.classList.add("show-card");
+      }, index * 180);
+    }
+
+  });
+}, { threshold: 0.3 });
+
+const faqHeading = document.querySelector(".faq-section h2");
+const faqSubheading = document.querySelector(".faq-subheading");
+const faqCardsAll = document.querySelectorAll(".faq-item");
+
+faqObserverFinal.observe(faqHeading);
+faqObserverFinal.observe(faqSubheading);
+faqCardsAll.forEach(card => faqObserverFinal.observe(card));
+
+      /* ================= FOOTER SCROLL ANIMATION ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const footerContainer = document.querySelector(".footer-container");
+
+  if (!footerContainer) return; // stop safely if footer not found
+
+  let footerPlayed = false;
+
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !footerPlayed) {
+
+        footerContainer.classList.add("show-container");
+
+        setTimeout(() => {
+          footerContainer.classList.add("show-content");
+        }, 200);
+
+        footerPlayed = true;
+      }
+    });
+  }, { threshold: 0.2 });
+
+  footerObserver.observe(footerContainer);
+
+});</script>
 
 </body>
+
 
 </html>

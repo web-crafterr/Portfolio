@@ -567,16 +567,6 @@
       </ul>
     </div>
 
-    <!-- RESOURCES -->
-    <!-- <div class="footer-col">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Case Studies</a></li>
-        <li><a href="#">Tech Stack</a></li>
-        <li><a href="#">Blog</a></li>
-      </ul>
-    </div> -->
-
     <!-- SOCIAL -->
     <div class="footer-col">
       <h4>Connect</h4>
@@ -606,6 +596,19 @@
 </footer>
 
   <script>
+
+const multiHeadingObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll(".heading-container")
+  .forEach(section => multiHeadingObserver.observe(section));
+
+
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(item => {
@@ -626,6 +629,150 @@
     });
 
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+  const section = document.querySelector(".expect-container");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          section.classList.add("show");
+        } 
+        // else {
+        //   section.classList.remove("show"); 
+        //   // remove so animation runs again when scrolling back
+        // }
+      });
+    },
+    {
+      threshold: 0.4,
+    }
+  );
+
+  observer.observe(section);
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const cards = document.querySelectorAll(".card");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } 
+      // else {
+      //   entry.target.classList.remove("show"); 
+      //   // remove so animation runs again on scroll up
+      // }
+    });
+  }, { threshold: 0.3 });
+
+  cards.forEach((card) => {
+    observer.observe(card);
+  });
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const section = document.querySelector(".highlight");
+
+  if (!section) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+
+      // Check if entering from top (scrolling down)
+      if (entry.isIntersecting && entry.boundingClientRect.top < entry.rootBounds.top) {
+        section.classList.add("show");
+      }
+
+      // Alternative simpler version: always trigger when entering from top
+      if (entry.isIntersecting) {
+        section.classList.add("show");
+      }
+
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(section);
+
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const section = document.querySelector(".expertise");
+  if (!section) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        section.classList.add("show");
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(section);
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const faqCards = document.querySelectorAll(".faq-item");
+
+  if (!faqCards.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add show class when scrolling down from top
+        entry.target.classList.add("show");
+      }
+      // Do NOT remove class → stays visible when scrolling up
+    });
+  }, { threshold: 0.3 });
+
+  faqCards.forEach(card => observer.observe(card));
+
+});
+
+
+ /* ================= FOOTER SCROLL ANIMATION ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const footerContainer = document.querySelector(".footer-container");
+
+  if (!footerContainer) return; // stop safely if footer not found
+
+  let footerPlayed = false;
+
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !footerPlayed) {
+
+        footerContainer.classList.add("show-container");
+
+        setTimeout(() => {
+          footerContainer.classList.add("show-content");
+        }, 200);
+
+        footerPlayed = true;
+      }
+    });
+  }, { threshold: 0.2 });
+
+  footerObserver.observe(footerContainer);
+
+});
+  </script>
+    <script src="./animation.js"></script>
 </body>
 
 </html>

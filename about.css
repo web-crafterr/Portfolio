@@ -184,6 +184,77 @@ nav a.active::after {
     width: 120%;
 }
 
+/* ================= NAV LOAD ANIMATION ================= */
+
+/* NAV LOAD WRAPPER ANIMATION */
+nav {
+    opacity: 0;
+    animation: navSlideDown 0.8s ease forwards;
+}
+
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Hide top elements initially */
+.logo,
+.nav-btn,
+nav ul li {
+    opacity: 0;
+    transform: translateY(-40px);
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* Stagger remaining nav links one by one */
+nav.elements-show ul li:nth-child(2) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.4s;
+}
+
+nav.elements-show ul li:nth-child(3) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+nav.elements-show ul li:nth-child(4) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.8s;
+}
+
+nav.elements-show ul li:nth-child(5) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 1s;
+}
+
+/* Drop animation */
+@keyframes dropDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .heading-container {
   background: var(--bg-main);
@@ -217,6 +288,30 @@ h2 {
 p {
   font-size: 20px;
 }
+
+/* ================= GLOBAL HEADING SCROLL ANIMATION ================= */
+
+@keyframes fadeUpGlobal {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial hidden state */
+.heading-container {
+  opacity: 0;
+}
+
+/* When visible */
+.heading-container.show {
+  animation: fadeUpGlobal 1s ease forwards;
+}
+
 
 .expect-container {
   display: flex;
@@ -394,6 +489,38 @@ text-decoration: none;
 
 }
 
+/* ============================= */
+/* EXPECT SECTION ANIMATIONS     */
+/* ============================= */
+
+/* Initial hidden state */
+.expect-image {
+  opacity: 0;
+  transform: translateX(-120px);
+  transition: all 1s ease;
+}
+
+.expect-content {
+  opacity: 0;
+  transform: translateX(120px);
+  transition: all 2s ease;
+}
+
+/* When visible on screen */
+.expect-container.show .expect-image {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.expect-container.show .expect-content {
+  opacity: 1;
+  transform: translateX(0);
+  
+  /* ⏳ GAP TIME BETWEEN BACKGROUND & CONTENT */
+  /* Change 1s below to control delay */
+  transition-delay: 0s;  /* <-- CURRENT GAP IS 1 SECOND */
+}
+
 
 
 /* Educational Section */
@@ -502,6 +629,24 @@ text-decoration: none;
   width: 100%;
   font-size: 15px;
   line-height: 1.5;
+}
+
+/* ============================= */
+/* EDUCATION CARDS CENTER SPLIT ANIMATION */
+/* ============================= */
+
+/* Initial hidden state */
+.card {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+/* When visible */
+.card.show {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 
@@ -732,6 +877,37 @@ padding: 5px 0px 5px 0px;
   height: 16px;
 }
 
+/* ========================= */
+/* HIGHLIGHT SECTION UNFOLD ANIMATION */
+/* ========================= */
+
+/* Whole section unfolds from left */
+.highlight {
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+    transition: transform 1.1s ease, opacity 0.6s ease;
+}
+
+/* When visible */
+.highlight.show {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+/* Content slides from right */
+.highlight-content {
+    opacity: 0;
+    transform: translateX(80px);
+    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+}
+
+/* Content visible */
+.highlight.show .highlight-content {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 /* Expertise Section */
 .expertise {
   display: flex;
@@ -841,6 +1017,39 @@ padding: 5px 0px 5px 0px;
   margin-right: 10px;
   flex-shrink: 0;       /* prevent icon from shrinking */
 }
+
+/* ========================= */
+/* EXPERTISE SECTION ANIMATION */
+/* ========================= */
+
+/* Initial hidden state */
+.skill-heading,
+.skill-list li {
+  opacity: 0;
+  transform: translateY(40px); /* start below */
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* When section is visible */
+.expertise.show .skill-heading {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Content appears with stagger */
+.expertise.show .skill-list li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: stagger each item with a small delay */
+.skill-list li:nth-child(1) { transition-delay: 0.3s; }
+.skill-list li:nth-child(2) { transition-delay: 0.5s; }
+.skill-list li:nth-child(3) { transition-delay: 0.7s; }
+.skill-list li:nth-child(4) { transition-delay: 0.9s; }
+.skill-list li:nth-child(5) { transition-delay: 1.1s; }
+/* add more if more items exist */
+
 
 .faq-card {
   max-width: 1200px;
@@ -1005,8 +1214,31 @@ background-color:var(--purple-soft); /* #979bda at 20% opacity */
   font-weight: 500;
 }
 
+/* ========================= */
+/* FAQ CARDS SLIDE UP ANIMATION */
+/* ========================= */
 
-/* Show answer when active by setting height in JS */
+/* Initial hidden state */
+.faq-item {
+  opacity: 0;
+  transform: translateY(50px); /* start below */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Visible state */
+.faq-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay for each card */
+.faq-item.show:nth-child(1) { transition-delay: 0s; }
+.faq-item.show:nth-child(2) { transition-delay: 0.2s; }
+.faq-item.show:nth-child(3) { transition-delay: 0.4s; }
+/* add more nth-child if more cards */
+
+
+
 
 /* ================= FOOTER ================= */
 .site-footer {
@@ -1035,9 +1267,6 @@ background-color:var(--purple-soft); /* #979bda at 20% opacity */
   font-size: 26px;
   color: var(--bg-main);
   margin-bottom: 15px;
-  width: 100%;
-  text-align: center;
-  padding-left: 20px;
 }
 
 .footer-col.brand p {
@@ -1119,5 +1348,46 @@ background: linear-gradient(135deg, #3f4881, #1d2549); /* Dark bluish-gray gradi
 .footer-bottom p {
   color: var(--text-primary);
   font-size: 16px;
+
+}
+
+/* ================= FOOTER ANIMATION ================= */
+
+/* Initial state */
+.footer-container {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: transform 0.9s ease, opacity 0.9s ease;
+}
+
+/* When container becomes visible */
+.footer-container.show-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide inner content initially */
+.footer-col > * {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Animate inner content */
+.footer-container.show-content .footer-col > * {
+  animation: footerFadeUp 0.6s ease forwards;
+}
+
+/* Delay effect (one by one inside each column) */
+.footer-container.show-content .footer-col > *:nth-child(1) { animation-delay: 0.2s; }
+.footer-container.show-content .footer-col > *:nth-child(2) { animation-delay: 0.4s; }
+.footer-container.show-content .footer-col > *:nth-child(3) { animation-delay: 0.6s; }
+.footer-container.show-content .footer-col > *:nth-child(4) { animation-delay: 0.8s; }
+.footer-container.show-content .footer-col > *:nth-child(5) { animation-delay: 1s; }
+
+@keyframes footerFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 

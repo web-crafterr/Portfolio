@@ -183,6 +183,79 @@ nav a.active::after {
     width: 120%;
 }
 
+
+/* ================= NAV LOAD ANIMATION ================= */
+
+/* NAV LOAD WRAPPER ANIMATION */
+nav {
+    opacity: 0;
+    animation: navSlideDown 0.8s ease forwards;
+}
+
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Hide top elements initially */
+.logo,
+.nav-btn,
+nav ul li {
+    opacity: 0;
+    transform: translateY(-40px);
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* First wave (logo + button + first link) */
+nav.elements-show .logo,
+nav.elements-show .nav-btn,
+nav.elements-show ul li:first-child {
+    animation: dropDown 0.6s ease forwards;
+}
+
+/* Stagger remaining nav links one by one */
+nav.elements-show ul li:nth-child(2) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.4s;
+}
+
+nav.elements-show ul li:nth-child(3) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+nav.elements-show ul li:nth-child(4) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 0.8s;
+}
+
+nav.elements-show ul li:nth-child(5) {
+    animation: dropDown 0.6s ease forwards;
+    animation-delay: 1s;
+}
+
+/* Drop animation */
+@keyframes dropDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 .page {
   max-width: 1400px;
   margin: auto;
@@ -251,6 +324,81 @@ p {
   font-size: 22px;
 }
 
+/* ================= BUTTON ================= */
+.con-hero-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 100px;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+/* button text */
+.btn-text {
+    display: inline-block;
+    white-space: nowrap;
+    transition: transform 0.35s ease;
+}
+
+/* arrow */
+.con-hero-btn .arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(10px, -50%) rotate(-45deg);
+    opacity: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--purple-soft);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    transition: all 0.35s ease;
+    z-index: 1;
+}
+
+/* hover effects (unchanged behavior) */
+.con-hero-btn:hover {
+    padding-right: 60px;
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+.con-hero-btn:hover .btn-text {
+    transform: translateX(-10px);
+}
+
+.con-hero-btn:hover .arrow {
+    transform: translate(0, -50%) rotate(-45deg);
+    opacity: 1;
+    background: var(--text-primary);
+    color: var(--bg-main);
+
+    con-hero a.active::after {
+        width: 120%;
+        transition-delay: 0.1s;
+    }
+}
+
+/* ACTIVE NAV LINK */
+con-hero a.active::after {
+    width: 120%;
+}
+
+
 .btn{
   text-decoration: none;
   background-color: var(--text-primary);
@@ -283,6 +431,42 @@ p {
   color: #222222;                 /* softer black for subtitle */
 }
 
+/* ================= SMOOTH BOTTOM TO TOP ANIMATION ================= */
+
+@keyframes smoothUp {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation */
+.heading-container,
+.heading-container img,
+.heading-container h2,
+.heading-container p,
+.expect-section,
+.con-hero-btn,
+.hero-heading-wrapper,
+.hero-title,
+.hero-subtitle {
+  opacity: 0;
+  animation: smoothUp 1.2s ease forwards;
+}
+
+/* Optional smooth stagger delays */
+.heading-container { animation-delay: 0.2s; }
+.heading-container h2 { animation-delay: 0.4s; }
+.heading-container p { animation-delay: 0.6s; }
+.con-hero-btn { animation-delay: 0.8s; }
+.hero-heading-wrapper { animation-delay: 1s; }
+.hero-title { animation-delay: 1.2s; }
+.hero-subtitle { animation-delay: 1.4s; }
+
 
 /* MAIN SECTION */
 .contact-section {
@@ -314,6 +498,8 @@ p {
   background: var(--text-primary);
   margin: 12px 0 24px;
 }
+
+
 
 .contact-left p {
   font-size: 18px;
@@ -479,6 +665,44 @@ h3 {
   padding-right: 10px;
 }
 
+/* ================= SCROLL TRIGGER ANIMATION ================= */
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Initial hidden state */
+.contact-left,
+.contact-right {
+  opacity: 0;
+}
+
+/* When visible */
+.contact-left.show {
+  animation: slideFromLeft 1s ease forwards;
+}
+
+.contact-right.show {
+  animation: slideFromRight 1s ease forwards;
+}
 
 /* BOTTOM */
 .bottom {
@@ -540,6 +764,29 @@ textarea {
   resize: none;
   height: 90px;
 }
+
+/* ===== Scroll Animation Base State ===== */
+
+.scroll-left,
+.scroll-right {
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+.scroll-left {
+  transform: translateX(-100px);
+}
+
+.scroll-right {
+  transform: translateX(100px);
+}
+
+/* When active */
+.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 
 /* =========================
    CSS AUTO CONFIRMATION
@@ -605,18 +852,7 @@ background-color: var(--purple-main);
   border-radius: 10px;
 }
 
-/* COMMENT */
-.comment {
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 14px;
-  border-radius: 12px;
-}
 
-.comment strong {
-  display: block;
-  margin-bottom: 6px;
-}
 
 .btn-primary-full {
   padding: 10px 20px;
@@ -648,36 +884,6 @@ background-color: var(--purple-main);
   /* optional: change border color on hover */
 }
 
-/* 
-.project-strip {
-  margin: 50px 0;
-  text-align: center;
-}
-
-.projects-row {
-  display: flex;
-  justify-content: center; 
-  gap: 30px;                
-  flex-wrap: wrap;         
-}
-
-.project-card {
-  width: 200px;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-}
-
-.project-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.project-card h4 {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #ffffff;
-} */
 
 /* ================= FAQ SECTION STYLING ================= */
 .faq-section {
@@ -786,6 +992,48 @@ background-color: var(--purple-main);
   padding: 15px 0;
   color: var(--text-primary);
   line-height: 1.6;
+}
+/* ================= FAQ FINAL SCROLL ANIMATION ================= */
+
+/* From Top */
+@keyframes slideFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* From Bottom */
+@keyframes slideFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial hidden state */
+.faq-section h2,
+.faq-subheading,
+.faq-item {
+  opacity: 0;
+}
+
+/* When visible */
+.faq-section h2.show-heading,
+.faq-subheading.show-subheading {
+  animation: slideFromTop 1s ease forwards;
+}
+
+.faq-item.show-card {
+  animation: slideFromBottom 0.8s ease forwards;
 }
 
 /* Show answer when active by setting height in JS */
@@ -900,4 +1148,44 @@ background: linear-gradient(135deg, #3f4881, #1d2549); /* Dark bluish-gray gradi
   font-size: 16px;
 }
 
+
+/* ================= FOOTER ANIMATION ================= */
+
+/* Initial state */
+.footer-container {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: transform 0.9s ease, opacity 0.9s ease;
+}
+
+/* When container becomes visible */
+.footer-container.show-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide inner content initially */
+.footer-col > * {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Animate inner content */
+.footer-container.show-content .footer-col > * {
+  animation: footerFadeUp 0.6s ease forwards;
+}
+
+/* Delay effect (one by one inside each column) */
+.footer-container.show-content .footer-col > *:nth-child(1) { animation-delay: 0.2s; }
+.footer-container.show-content .footer-col > *:nth-child(2) { animation-delay: 0.4s; }
+.footer-container.show-content .footer-col > *:nth-child(3) { animation-delay: 0.6s; }
+.footer-container.show-content .footer-col > *:nth-child(4) { animation-delay: 0.8s; }
+.footer-container.show-content .footer-col > *:nth-child(5) { animation-delay: 1s; }
+
+@keyframes footerFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
